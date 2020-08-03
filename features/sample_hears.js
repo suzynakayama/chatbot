@@ -76,14 +76,14 @@ module.exports = function (controller) {
     bot,
     message
   ) {
-    await bot.reply(message, { text: "You're welcome!" });
+    await bot.reply(message, { text: "You're welcome! Enjoy your cooking!" });
   });
 
   controller.hears(
     new RegExp(/hank/),
     ["message", "direct_message"],
     async function (bot, message) {
-      await bot.reply(message, { text: "You're welcome!" });
+      await bot.reply(message, { text: "You're welcome! Enjoy your cooking!" });
     }
   );
 
@@ -101,7 +101,7 @@ module.exports = function (controller) {
     async function (bot, message) {
       await bot.reply(message, {
         text:
-          "What would you like to learn today? Brigadeiro, Beijinho, or Cajuzinho?",
+          "What would you like to learn today? 'Brigadeiro', 'Beijinho', or 'Cajuzinho'?",
       });
     }
   );
