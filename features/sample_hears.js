@@ -96,6 +96,17 @@ module.exports = function (controller) {
   );
 
   controller.hears(
+    ["help", "menu"],
+    ["message", "direct_message"],
+    async function (bot, message) {
+      await bot.reply(message, {
+        text:
+          "I have a few recipe options for you today. Please write 'options' and I'll give them to you.",
+      });
+    }
+  );
+
+  controller.hears(
     new RegExp(/option/),
     ["message", "direct_message"],
     async function (bot, message) {
