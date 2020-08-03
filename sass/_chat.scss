@@ -6,13 +6,13 @@ $human_message_background: $botkit_purple;
 $human_message_text: white;
 
 #message_window {
-    background: $background;
-    border-left: 1px solid #CCC;
-    border-right: 1px solid #CCC;
+    // background: $background;
+    // border-left: 1px solid #CCC;
+    // border-right: 1px solid #CCC;
 
     /*height: 500px;
     width: 320px;*/
-    height: 100%;
+    height: 80vh;
     width: 100%;
     /*margin: 2rem auto;*/
     display: flex;
@@ -90,6 +90,7 @@ $human_message_text: white;
          cursor: pointer;
          color: blue;
          font-weight: bold;
+         font-size: 1.2rem;
      }
   }
 

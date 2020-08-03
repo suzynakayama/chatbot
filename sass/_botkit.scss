@@ -24,7 +24,9 @@ html {
     @include clearfix;
     position: relative;
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 20px auto;
+    border: 1.5px solid blue;
+    border-radius: 20px;
 }
 
 .box {
