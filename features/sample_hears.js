@@ -56,11 +56,22 @@ module.exports = function (controller) {
     async function (bot, message) {
       await bot.reply(message, {
         text:
-          "Good! I have a few recipe options for you today. Please write options and I'll give them to you.",
+          "Good! I have a few recipe options for you today. Please write 'options' and I'll give them to you.",
       });
     }
   );
 
+  controller.hears(
+    new RegExp(/ine/),
+    ["message", "direct_message"],
+    async function (bot, message) {
+      await bot.reply(message, {
+        text:
+          "Good! I have a few recipe options for you today. Please write 'options' and I'll give them to you.",
+      });
+    }
+  );
+    
   controller.hears("tks", ["message", "direct_message"], async function (
     bot,
     message

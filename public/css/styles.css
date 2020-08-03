@@ -206,6 +206,7 @@ a.button:hover {
 }
 #message_window footer input[type=text]::placeholder {
   color: #c396f3;
+  font-style: italic;
 }
 #message_window footer input[type=text]:focus-within,
 #message_window footer input[type=text]:focus {
