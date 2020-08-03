@@ -6,7 +6,7 @@
 module.exports = function(controller) {
 
     controller.on('message,direct_message', async (bot, message) => {
-        await bot.reply(message, `I am not sure what ${ message.text } means.`);
+        await bot.reply(message, `I am not sure what ${ message.text } means. Try writing 'hello', 'options', 'good', 'thank you', or 'bye'.`);
     });
 
 }

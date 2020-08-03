@@ -254,8 +254,10 @@ a.button:hover {
   background: #f3f8ff;
   color: #4d65ee;
   border-radius: 15px;
-  display: inline-block;
-  max-width: 75%;
+  display: block;
+  max-width: 70%;
+  margin: 0 auto;
+  border: 1px solid #c4d9f7;
 }
 #message_window .file_attachment img {
   max-width: 100%;
@@ -306,16 +308,18 @@ a.button:hover {
 #message_window #message_replies a {
   text-decoration: none;
   display: block;
-  border: 1px solid #a795ef;
-  color: #a795ef;
+  border: 1px solid #c396f3;
+  color: #c396f3;
   border-radius: 16px;
   padding: 0.25rem 1rem;
   font-size: 14px;
   cursor: pointer;
+  transition: all 300ms;
 }
 #message_window #message_replies a:hover {
-  background: #a795ef;
+  background: #c396f3;
   color: #FFF;
+  transform: scale(1.1);
 }
 
 /* typing indicator CSS based on code by Joseph Fusco -> https://codepen.io/fusco/pen/XbpaYv */

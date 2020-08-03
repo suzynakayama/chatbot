@@ -3,132 +3,119 @@
  * Licensed under the MIT License.
  */
 
+// ------------------- Recipes and Phrase ------------------- 
 const brigadeiro = `
-Ingredients:
+Ingredients: \n
 - 3 tbsp of cocoa powder
 - 1 can of condensed milk
-- 1 tbsp of butter
-Directions:
+- 1 tbsp of butter \n
+Directions: \n
 Mix all ingredients in a saucepan over medium heat until thickened, about 10 minutes. Remove and let it cool. Form small ball and roll into chocolate sprinkles.`;
 
 const beijinho = `
-Ingredients:
+Ingredients: \n
 - 1/2 cup of unsweetened shredded coconut
 - 1 can of condensed milk
-- 1 tbsp of butter
-Directions:
+- 1 tbsp of butter \n
+Directions: \n
 Mix all ingredients in a saucepan over medium heat until thickened, about 10 minutes. Remove and let it cool. Form small ball and roll into shredded coconut. You can put a small clove on top to decorate it.
 Ps. Take the clove out before eating.`;
 
 const cajuzinho = `
-Ingredients:
+Ingredients: \n
 - 1 tbsp cocoa powder
 - 1 can of condensed milk
 - 1 tbsp of butter
-- 1 cup of crushed peanuts
-Directions:
+- 1 cup of crushed peanuts \n
+Directions: \n
 Mix all ingredients in a saucepan over medium heat until thickened, about 10 minutes. Remove and let it cool. Form small ball and elongate it to look like a cashew. Roll into granulated sugar and put 1/2 peanut on top.`;
 
+const phrase =
+  "I have a few recipes options for you today. Please write 'options' and I'll give them to you.";
+
+// ------------------- Helper Function ------------------- 
+const getRecipe = msg => {
+  let answer;
+  if (msg.toLowerCase() === 'brigadeiro')
+    answer = {
+      text: `Ok. Here is the recipe: \n ${brigadeiro}`,
+      url: "/images/brigadeiro.jpg",
+    };
+  if (msg.toLowerCase() === 'beijinho')
+    answer = {
+      text: `Ok. Here is the recipe: \n ${beijinho}`,
+      url: "/images/beijinho.jpg",
+    };
+  if (msg.toLowerCase() === 'cajuzinho')
+    answer = {
+      text: `Ok. Here is the recipe: \n ${cajuzinho}`,
+      url: "/images/cajuzinho.jpg",
+    };
+  return answer;
+}
+
 module.exports = function (controller) {
-  // use a function to match a condition in the message
-  controller.hears(
-    async (message) => message.text && message.text.toLowerCase() === "foo",
-    ["message"],
-    async (bot, message) => {
-      await bot.reply(message, 'I heard "foo" via a function test');
-    }
-  );
-
-  // use a regular expression to match the text of the message
-  controller.hears(
-    new RegExp(/^\d+$/),
-    ["message", "direct_message"],
-    async function (bot, message) {
-      await bot.reply(message, {
-        text: "I heard a number using a regular expression.",
-      });
-    }
-  );
-
-  controller.hears(
-    new RegExp(/ood/),
-    ["message", "direct_message"],
-    async function (bot, message) {
-      await bot.reply(message, {
-        text:
-          "Good! I have a few recipe options for you today. Please write 'options' and I'll give them to you.",
-      });
-    }
-  );
-
-  controller.hears(
-    new RegExp(/ine/),
-    ["message", "direct_message"],
-    async function (bot, message) {
-      await bot.reply(message, {
-        text:
-          "Good! I have a few recipe options for you today. Please write 'options' and I'll give them to you.",
-      });
-    }
-  );
     
-  controller.hears("tks", ["message", "direct_message"], async function (
-    bot,
-    message
-  ) {
-    await bot.reply(message, { text: "You're welcome! Enjoy your cooking!" });
-  });
-
   controller.hears(
-    new RegExp(/hank/),
+    new RegExp(/(hi|hello|howdy|hey)/i),
     ["message", "direct_message"],
     async function (bot, message) {
-      await bot.reply(message, { text: "You're welcome! Enjoy your cooking!" });
+      await bot.reply(message, { text: "Hi! I'm Yuki. How are you today?" });
     }
   );
 
   controller.hears(
-    ["bad", "Bad", "so-so", "So-so"],
-    ["message", "direct_message"],
-    async function (bot, message) {
-      await bot.reply(message, { text: "Oh, sorry to hear that." });
-    }
-  );
-
-  controller.hears(
-    ["help", "menu"],
+    new RegExp(/(good|fine)/i),
     ["message", "direct_message"],
     async function (bot, message) {
       await bot.reply(message, {
         text:
-          "I have a few recipe options for you today. Please write 'options' and I'll give them to you.",
+          `Good! ${phrase}`,
       });
     }
   );
 
+  controller.hears(
+    [new RegExp(/bad/i), new RegExp(/(soso|so-so)/i)],
+    ["message", "direct_message"],
+    async function (bot, message) {
+      await bot.reply(message, {
+        text:
+          `Oh, sorry to hear that. ${phrase}`,
+      });
+    }
+  );
+
+  controller.hears(
+    ["help", "menu", "/help"],
+    ["message", "direct_message"],
+    async function (bot, message) {
+      await bot.reply(message, {
+        text:
+          `${phrase} Or try 'hello', 'good', 'thank you', or 'bye'.`,
+      });
+    }
+  );
+  
   controller.hears(
     new RegExp(/option/),
     ["message", "direct_message"],
     async function (bot, message) {
       await bot.reply(message, {
         text:
-          "What would you like to learn today? 'Brigadeiro', 'Beijinho', or 'Cajuzinho'?",
-      });
-    }
-  );
-
-  controller.hears(
-    new RegExp(/rigadeiro/),
-    ["message", "direct_message"],
-    async function (bot, message) {
-      await bot.reply(message, {
-        text: `Ok! Here is the recipe:
-                ${brigadeiro}`,
-        files: [
+          "What would you like to learn today?",
+        quick_replies: [
           {
-            image: true,
-            url:
-              "https://www.receitasnestle.com.br/images/default-source/recipes/brigadeiro_alta.jpg",
+            title: 'Brigadeiro',
+            payload: 'brigadeiro'
+          },
+          {
+            title: 'Beijinho',
+            payload: 'beijinho'
+          },
+          {
+            title: 'Cajuzinho',
+            payload: 'cajuzinho'
           },
         ],
       });
@@ -136,66 +123,32 @@ module.exports = function (controller) {
   );
 
   controller.hears(
-    new RegExp(/eijinho/),
+    new RegExp(/(brigadeiro|beijinho|cajuzinho)/i),
     ["message", "direct_message"],
     async function (bot, message) {
+      const { text, url } = getRecipe(message.text);
       await bot.reply(message, {
-        text: `Ok! Here is the recipe:
-                ${beijinho}`,
+        text: text,
         files: [
           {
             image: true,
             url:
-              "https://www.receitasnestle.com.br/images/default-source/recipes/beijinho-alta-1-20170606022820367.tmb-customthum.jpg",
+              url,
           },
         ],
       });
     }
   );
 
-  controller.hears(
-    new RegExp(/ajuzinho/),
-    ["message", "direct_message"],
-    async function (bot, message) {
-      await bot.reply(message, {
-        text: `Ok! Here is the recipe:
-                ${cajuzinho}`,
-        files: [
-          {
-            image: true,
-            url:
-              "https://www.receitasnestle.com.br/images/default-source/recipes/cajuzinho-alta-1-20170606022953736.jpg",
-          },
-        ],
-      });
-    }
-  );
-
-  // match any one of set of mixed patterns like a string, a regular expression
-  controller.hears(
-    [
-        "hi",
-        "Hi",
-        "Hello",
-        "hello",
-        "howdy",
-        "Howdy",
-        "Hey",
-        "hey",
-        "aloha",
-        "Aloha",
-        "hola",
-        "Hola",
-        "bonjour",
-        "Bonjour",
-        "oi",
-        "Oi",
-    ],
-    ["message", "direct_message"],
-    async function (bot, message) {
-      await bot.reply(message, { text: "Hi! I'm Yuki. How are you today?" });
-    }
-  );
+    controller.hears(
+      ["tks", new RegExp(/thank/i)],
+      ["message", "direct_message"],
+      async function (bot, message) {
+        await bot.reply(message, {
+          text: "You're welcome! Enjoy your cooking!",
+        });
+      }
+    );
     
     controller.hears(
       ["bye", "Bye"],
